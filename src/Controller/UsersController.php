@@ -10,6 +10,11 @@ use App\Controller\AppController;
  */
 class UsersController extends AppController {
 
+	public function initialize() {
+		parent::initialize();
+		$this->Auth->allow(['add']);
+	}
+
 	public function add() {
 		$user = $this->Users->newEntity();
 		if($this->request->is('post')) {
