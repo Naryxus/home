@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="59a80790-f042-4b51-8aa8-7eb6bd7f3d60" name="Raspi" url="http://freecoding.hopto.org">
+        <fileTransfer host="freecoding.hopto.org" port="22" rootFolder="/var/www/html/home" accessType="SFTP" password="dff9dfdedfcfdfccdfcbdfc4dff5df9bdf93df93df98" username="pi">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" />
+          </advancedOptions>
+          <option name="port" value="22" />
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>
