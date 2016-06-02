@@ -61,6 +61,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
         	?>
     	</p>
     	<!-- Top Menu Items -->
+		<?php if($loggedIn): ?>
     	<ul class="nav navbar-right top-nav">
         	<li class="dropdown">
             	<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-envelope"></i> <b class="caret"></b></a>
@@ -109,6 +110,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
             	</ul>
         	</li>
     	</ul>
+
     	<!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
     	<div class="collapse navbar-collapse navbar-ex1-collapse">
         	<ul class="nav navbar-nav side-nav">
@@ -168,6 +170,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
             ?>-->
         </ul>
 		</div>
+		<?php endif; ?>
 		<!-- /.navbar-collapse -->
 	</nav>
 	<div id="page-wrapper">

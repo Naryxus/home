@@ -1,19 +1,19 @@
 <?php
 namespace App\Model\Table;
 
-use App\Model\Entity\ControlObject;
+use App\Model\Entity\Permission;
 use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
 
 /**
- * ControlObjects Model
+ * Permissions Model
  *
- * @property \Cake\ORM\Association\BelongsTo $ParentControlObjects
- * @property \Cake\ORM\Association\HasMany $ChildControlObjects
+ * @property \Cake\ORM\Association\BelongsTo $ControlObjects
+ * @property \Cake\ORM\Association\BelongsTo $RequestObjects
  */
-class ControlObjectsTable extends Table
+class PermissionsTable extends Table
 {
 
     /**
@@ -26,19 +26,17 @@ class ControlObjectsTable extends Table
     {
         parent::initialize($config);
 
-        $this->table('control_objects');
+        $this->table('permissions');
         $this->displayField('id');
         $this->primaryKey('id');
 
-        $this->addBehavior('Tree');
-
-        $this->belongsTo('ParentControlObjects', [
-            'className' => 'ControlObjects',
-            'foreignKey' => 'parent_id'
+        $this->belongsTo('ControlObjects', [
+            'foreignKey' => 'control_object_id',
+            'joinType' => 'INNER'
         ]);
-        $this->hasMany('ChildControlObjects', [
-            'className' => 'ControlObjects',
-            'foreignKey' => 'parent_id'
+        $this->belongsTo('RequestObjects', [
+            'foreignKey' => 'request_object_id',
+            'joinType' => 'INNER'
         ]);
     }
 
@@ -55,18 +53,9 @@ class ControlObjectsTable extends Table
             ->allowEmpty('id', 'create');
 
         $validator
-            ->integer('lft')
-            //->requirePresence('lft', 'create')
-            ->notEmpty('lft');
-
-        $validator
-            ->integer('rght')
-            //->requirePresence('rght', 'create')
-            ->notEmpty('rght');
-
-        $validator
-            ->requirePresence('name', 'create')
-            ->notEmpty('name');
+            ->boolean('permitted')
+            ->requirePresence('permitted', 'create')
+            ->notEmpty('permitted');
 
         return $validator;
     }
@@ -80,7 +69,8 @@ class ControlObjectsTable extends Table
      */
     public function buildRules(RulesChecker $rules)
     {
-        $rules->add($rules->existsIn(['parent_id'], 'ParentControlObjects'));
+        $rules->add($rules->existsIn(['control_object_id'], 'ControlObjects'));
+        $rules->add($rules->existsIn(['request_object_id'], 'RequestObjects'));
         return $rules;
     }
 }

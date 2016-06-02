@@ -4,17 +4,18 @@ namespace App\Model\Entity;
 use Cake\ORM\Entity;
 
 /**
- * ControlObject Entity.
+ * RequestObject Entity.
  *
  * @property int $id
  * @property int $parent_id
- * @property \App\Model\Entity\ControlObject $parent_control_object
+ * @property \App\Model\Entity\ParentRequestObject $parent_request_object
  * @property int $lft
  * @property int $rght
- * @property string $name
- * @property \App\Model\Entity\ControlObject[] $child_control_objects
+ * @property string $model
+ * @property int $foreign_key
+ * @property \App\Model\Entity\ChildRequestObject[] $child_request_objects
  */
-class ControlObject extends Entity
+class RequestObject extends Entity
 {
 
     /**

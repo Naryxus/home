@@ -25,6 +25,15 @@ class UsersTable extends Table {
 		$this->primaryKey('id');
 
 		$this->addBehavior('Timestamp');
+
+		$this->belongsTo('Rights');
+		
+		$this->hasOne('RequestObjects', [
+			'className' => 'RequestObjects',
+			'foreignKey' => 'foreign_key',
+			'conditions' => ['RequestObjects.model' => 'User'],
+			'dependent' => true
+		]);
 	}
 
 	/**

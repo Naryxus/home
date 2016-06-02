@@ -52,7 +52,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
         	<?=
         		$this->Html->getCrumbs(' > ', array(
             		'text' => '<span class="fa fa-home"></span>',
-            		'url' => array('controller' => 'Users', 'action' => 'index'), //TODO Rewrite to startpage
+            		'url' => array('controller' => 'Users', 'action' => 'index'),
             		'escape' => false
         		));
         	?>

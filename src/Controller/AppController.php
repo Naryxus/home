@@ -47,7 +47,10 @@ class AppController extends Controller {
                 'controller' => 'Users',
                 'action' => 'login'
             ],
-            'unauthorizedRedirect' => $this->referer()
+			'loginRedirect' => [
+				'controller' => 'Users',
+				'action' => 'index'
+			]
         ]);
     }
 
@@ -64,5 +67,20 @@ class AppController extends Controller {
         ) {
             $this->set('_serialize', true);
         }
+    }
+
+    public function beforeFilter(Event $event) {
+        if(is_null($this->Auth->user()) && ($this->request->param('controller') != 'Users' || $this->request->param('action') != 'add')) {
+			$this->viewBuilder()->layout('visitor');
+		}
+        else {
+			if(is_null($this->Auth->user()))
+				$this->set('loggedIn', false);
+			else {
+				$this->set('loggedIn', true);
+				$this->set('user', $this->Auth->user());
+			}
+			$this->viewBuilder()->layout('default');
+		}
     }
 }

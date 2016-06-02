@@ -4,17 +4,13 @@ namespace App\Model\Entity;
 use Cake\ORM\Entity;
 
 /**
- * ControlObject Entity.
+ * Right Entity.
  *
  * @property int $id
- * @property int $parent_id
- * @property \App\Model\Entity\ControlObject $parent_control_object
- * @property int $lft
- * @property int $rght
  * @property string $name
- * @property \App\Model\Entity\ControlObject[] $child_control_objects
+ * @property \App\Model\Entity\User[] $users
  */
-class ControlObject extends Entity
+class Right extends Entity
 {
 
     /**

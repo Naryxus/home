@@ -1,19 +1,19 @@
 <?php
 namespace App\Model\Table;
 
-use App\Model\Entity\ControlObject;
+use App\Model\Entity\RequestObject;
 use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
 
 /**
- * ControlObjects Model
+ * RequestObjects Model
  *
- * @property \Cake\ORM\Association\BelongsTo $ParentControlObjects
- * @property \Cake\ORM\Association\HasMany $ChildControlObjects
+ * @property \Cake\ORM\Association\BelongsTo $ParentRequestObjects
+ * @property \Cake\ORM\Association\HasMany $ChildRequestObjects
  */
-class ControlObjectsTable extends Table
+class RequestObjectsTable extends Table
 {
 
     /**
@@ -26,18 +26,18 @@ class ControlObjectsTable extends Table
     {
         parent::initialize($config);
 
-        $this->table('control_objects');
+        $this->table('request_objects');
         $this->displayField('id');
         $this->primaryKey('id');
 
         $this->addBehavior('Tree');
 
-        $this->belongsTo('ParentControlObjects', [
-            'className' => 'ControlObjects',
+        $this->belongsTo('ParentRequestObjects', [
+            'className' => 'RequestObjects',
             'foreignKey' => 'parent_id'
         ]);
-        $this->hasMany('ChildControlObjects', [
-            'className' => 'ControlObjects',
+        $this->hasMany('ChildRequestObjects', [
+            'className' => 'RequestObjects',
             'foreignKey' => 'parent_id'
         ]);
     }
@@ -56,17 +56,22 @@ class ControlObjectsTable extends Table
 
         $validator
             ->integer('lft')
-            //->requirePresence('lft', 'create')
+            ->requirePresence('lft', 'create')
             ->notEmpty('lft');
 
         $validator
             ->integer('rght')
-            //->requirePresence('rght', 'create')
+            ->requirePresence('rght', 'create')
             ->notEmpty('rght');
 
         $validator
-            ->requirePresence('name', 'create')
-            ->notEmpty('name');
+            ->requirePresence('model', 'create')
+            ->notEmpty('model');
+
+        $validator
+            ->integer('foreign_key')
+            ->requirePresence('foreign_key', 'create')
+            ->notEmpty('foreign_key');
 
         return $validator;
     }
@@ -80,7 +85,7 @@ class ControlObjectsTable extends Table
      */
     public function buildRules(RulesChecker $rules)
     {
-        $rules->add($rules->existsIn(['parent_id'], 'ParentControlObjects'));
+        $rules->add($rules->existsIn(['parent_id'], 'ParentRequestObjects'));
         return $rules;
     }
 }
